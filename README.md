@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME : Vikamuhan reddy</H3>
+<H3>ENTER YOUR REGISTER NO. : 212223240181</H3>
 <H3>EX. NO.1</H3>
-<H3>DATE</H3>
+<H3>DATE : 15/08/25</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -37,11 +37,53 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+```py
+#import libraries
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+
+#Read the dataset from drive
+df = pd.read_csv("/Users/apple/neuralNetworkExps/EX-1-NN/Churn_Modelling.csv")
+df = df.drop(["Surname","RowNumber","CustomerId"],axis=1)
+df.head()
+
+# Finding Missing Values
+print(df.isnull().sum())
+
+#Check for Duplicates
+df.duplicated().sum()
+
+# converting string to numerical values(Label Encoding)
+encode = LabelEncoder()
+df['Gender'] = encode.fit_transform(df['Gender'])
+df['Geography'] = encode.fit_transform(df['Geography'])
+
+# Spliting the data
+X = df.iloc[: , :-1]
+y = df.iloc[: , -1]
+
+# Normalize the data
+scaler = StandardScaler()
+X_transform = scaler.fit_transform(X)
+X_transform
+
+#split the dataset into input and output
+x_train,x_test,y_train,y_test = train_test_split(X_transform,y,test_size=0.2)
+
+#Print the training data and testing data
+print("The training set of transformed X :\n",x_train)
+print("The testing set of transformed X :\n ",x_test)
+print("The training set of y : \n",y_train)
+print("The testing set of y : \n",y_test)
+```
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+!['Output](./Screen%20Shot%201947-05-24%20at%2012.45.10.png)
+!['Output'](./Screen%20Shot%201947-05-24%20at%2012.44.58.png)
+
 
 
 ## RESULT:
